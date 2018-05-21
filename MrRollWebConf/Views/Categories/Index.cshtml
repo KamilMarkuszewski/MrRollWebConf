@@ -1,27 +1,59 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<Category>
 
-<table>
-    <tr>
-        <th>Category</th>
-        <th>Topic</th>
-        <th></th>
-        <th></th>
-    </tr>
-    
-    <tr>
-        <td>Cars</td>
-        <td>Parking</td>
-        <td><button type="button" class="btn btn-info">Edit</button></td>
-        <td><button type="button" class="btn btn-danger">Delete</button></td>
-    </tr>
-    
-    <tr>
-        <td>Cars</td>
-        <td>Delegacje</td>
-        <td><button type="button" class="btn btn-info">Edit</button></td>
-        <td><button type="button" class="btn btn-danger">Delete</button></td>
-    </tr>
-    
-</table>
+
+<h3>Kategorie i tematy</h3>
+<br/><br /><br />
+
+<p>
+    <table class="table table-hover table-striped">
+        <tr>
+            <th>Category</th>
+            <th>Topic</th>
+            <th width="20%"></th>
+
+        </tr>
+
+
+        @foreach (var category in Model)
+        {
+            int count = category.Topics.Count + 2;
+            <tr>
+                <td rowspan="@count">@category.Name</td>
+                <td></td>
+                <td>
+                    <a class="btn btn-info" asp-action="EditCategory">Edit</a>
+                    <a class="btn btn-danger" asp-action="DeleteCategory">Delete</a>
+                </td>
+
+            </tr>
+            foreach (var topic in category.Topics)
+            {
+                <tr>
+
+                    <td>@topic.Name</td>
+                    <td>
+                        <a class="btn btn-info" asp-action="EditTopic">Edit</a>
+                        <a class="btn btn-danger"  asp-action="DeleteTopic">Delete</a>
+                    </td>
+
+                </tr>
+            }
+            <tr>
+                <td></td>
+
+                <td>
+                    <a class="btn btn-success" asp-action="AddTopic">Add topic</a>
+                </td>
+            </tr>
+
+        }
+        <tr>
+            <td></td>
+            <td></td>
+            <td>
+                <a class="btn btn-success" asp-action="AddCategory">Add category</a>
+            </td>
+        </tr>
+
+    </table>
+</p>

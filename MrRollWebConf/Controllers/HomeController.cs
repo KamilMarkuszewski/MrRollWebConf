@@ -29,6 +29,13 @@ namespace MrRollWebConf.Controllers
             return View();
         }
 
+        public IActionResult Description()
+        {
+            ViewData["Message"] = "About.";
+
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
