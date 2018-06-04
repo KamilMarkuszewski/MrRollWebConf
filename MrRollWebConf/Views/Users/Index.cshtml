@@ -1,4 +1,42 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<User>
 
+<h3>Użytkownicy</h3>
+<br />
+
+<div>
+    <a class="btn btn-success" asp-action="AddUser">Add user</a>
+</div>
+
+
+
+<table class="table table-hover table-striped" style="margin-bottom: 70px; margin-top: 30px;">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th width="200" style="text-align: right;">Edycja</th>
+        </tr>
+    </thead>
+
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Name</td>
+            <td style="text-align: right;">
+                <a class="btn btn-info btn-lighter" asp-action="EditUser" asp-route-userId="@user.Id"><span class="ui-icon ui-icon-pencil"></span></a>
+                @if (!user.HasSubscription)
+                {
+                    <form style="display: inline;" asp-action="DeleteUser" method="post">
+                        <input type="hidden" name="categoryId" value="@user.Id" />
+                        <button type="submit" class="btn btn-danger btn-lighter"><span class="ui-icon ui-icon-trash"></span></button>
+                    </form>
+                }
+                else
+                {
+                    <span class="btn btn-secondary btn-lighter"><span class="ui-icon ui-icon-trash"></span></span>
+                }
+            </td>
+
+        </tr>
+    }
+
+</table>

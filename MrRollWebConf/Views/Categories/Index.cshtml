@@ -7,36 +7,36 @@
     <a class="btn btn-success" asp-action="AddCategory">Add category</a>
 </div>
 
-<br />
 
-<table class="table table-hover table-striped">
-    <tr>
-        <th>Category</th>
-        <th>Topic</th>
-        <th width="20%"></th>
 
-    </tr>
+<table class="table table-hover table-striped" style="margin-bottom: 70px; margin-top: 30px;">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Topic</th>
+            <th width="200"  style="text-align: right;">Edycja</th>
+        </tr>
+    </thead>
 
 
     @foreach (var category in Model)
     {
-        int count = category.Topics.ToList().Count + 1;
-        <tr>
-            <td rowspan="@count">@category.Name</td>
+        <tr class="category-row">
+            <td >@category.Name</td>
             <td></td>
-            <td>
-                <a class="btn btn-success" asp-action="AddTopic" asp-route-categoryId="@category.Id"><span class="ui-icon ui-icon-plusthick"></span></a>
-                <a class="btn btn-info" asp-action="EditCategory" asp-route-categoryId="@category.Id"><span class="ui-icon ui-icon-pencil"></span></a>
+            <td style="text-align: right;">
+                <a class="btn btn-success btn-lighter" asp-action="AddTopic" asp-route-categoryId="@category.Id"><span class="ui-icon ui-icon-plusthick"></span></a>
+                <a class="btn btn-info btn-lighter" asp-action="EditCategory" asp-route-categoryId="@category.Id"><span class="ui-icon ui-icon-pencil"></span></a>
                 @if (!category.Topics.Any())
                 {
                     <form style="display: inline;" asp-action="DeleteCategory" method="post">
-                        <input type="hidden" name="categoryId" value="@category.Id"/>
-                        <button type="submit" class="btn btn-danger"><span class="ui-icon ui-icon-trash"></span></button>
+                        <input type="hidden" name="categoryId" value="@category.Id" />
+                        <button type="submit" class="btn btn-danger btn-lighter"><span class="ui-icon ui-icon-trash"></span></button>
                     </form>
                 }
                 else
                 {
-                    <button class="btn btn-secondary"><span class="ui-icon ui-icon-trash"></span></button>
+                    <span class="btn btn-secondary btn-lighter"><span class="ui-icon ui-icon-trash"></span></span>
                 }
             </td>
 
@@ -44,14 +44,14 @@
         foreach (var topic in category.Topics)
         {
             <tr>
-
+                <td></td>
                 <td>@topic.Name</td>
-                <td>
-                    <a class="btn btn-info" asp-action="EditTopic" asp-route-topicId="@topic.Id" asp-route-categoryId="@category.Id"><span class="ui-icon ui-icon-pencil"></span></a>
+                <td style="text-align: right;">
+                    <a class="btn btn-info btn-lighter" asp-action="EditTopic" asp-route-topicId="@topic.Id" asp-route-categoryId="@category.Id"><span class="ui-icon ui-icon-pencil"></span></a>
                     <form style="display: inline;" asp-action="DeleteTopic" method="post">
                         <input type="hidden" name="topicId" value="@topic.Id" />
                         <input type="hidden" name="categoryId" value="@category.Id" />
-                        <button type="submit" class="btn btn-danger"><span class="ui-icon ui-icon-trash"></span></button>
+                        <button type="submit" class="btn btn-danger btn-lighter"><span class="ui-icon ui-icon-trash"></span></button>
                     </form>
                 </td>
 

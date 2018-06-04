@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MrRollWebConf</title>
+    <title>@TempData["Title"] - MrRollWebConf</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -37,21 +37,21 @@
     </nav>
     <div class="container body-content">
 
-        @if (ViewData["success"] != null)
+        @if (TempData["success"] != null)
         {
-            <br /><div class="alert alert-success" role="alert">@ViewData["success"]</div>
+            <br /><div class="alert alert-success" role="alert">@TempData["success"]</div>
         }
-        @if (ViewData["error"] != null)
+        @if (TempData["error"] != null)
         {
-            <br /><div class="alert alert-danger" role="alert">@ViewData["error"]</div>
+            <br /><div class="alert alert-danger" role="alert">@TempData["error"]</div>
         }
-        @if (ViewData["warning"] != null)
+        @if (TempData["warning"] != null)
         {
-            <br /><div class="alert alert-warning" role="alert">@ViewData["warning"]</div>
+            <br /><div class="alert alert-warning" role="alert">@TempData["warning"]</div>
         }
-        @if (ViewData["info"] != null)
+        @if (TempData["info"] != null)
         {
-            <br /><div class="alert alert-info" role="alert">@ViewData["info"]</div>
+            <br /><div class="alert alert-info" role="alert">@TempData["info"]</div>
         }
 
 
@@ -60,7 +60,7 @@
 
 
         @RenderBody()
-       
+
         <footer>
             <div class="navbar navbar-inverse navbar-fixed-bottom">
                 <p class="container">&copy; 2018 - MrRollWebConf</p>

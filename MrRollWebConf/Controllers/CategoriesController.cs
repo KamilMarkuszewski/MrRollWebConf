@@ -23,7 +23,7 @@ namespace MrRollWebConf.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var categories = _categoriesRepository.GetCategories().OrderBy(c => c.Id);
+            var categories = _categoriesRepository.GetCategories().OrderBy(c => c.Name);
             return View("Index", categories);
         }
 
@@ -38,7 +38,7 @@ namespace MrRollWebConf.Controllers
             var cateogry = categories.FirstOrDefault(c => c.Id == categoryId);
             if (cateogry == null)
             {
-                ViewData["error"] = "Obiekt został usunięty przez innego użytkownika.";
+                TempData["error"] = "Obiekt został usunięty przez innego użytkownika.";
                 return RedirectToAction("Index");
             }
 
@@ -51,11 +51,11 @@ namespace MrRollWebConf.Controllers
             try
             {
                 _categoriesRepository.DeleteCategory(categoryId);
-                ViewData["success"] = "Kategoria została usunięta.";
+                TempData["success"] = "Kategoria została usunięta.";
             }
             catch (MrRollException)
             {
-                ViewData["error"] = "Operacja zakończona niepowodzeniem.";
+                TempData["error"] = "Operacja zakończona niepowodzeniem.";
             }
             return RedirectToAction("Index");
         }
@@ -67,7 +67,7 @@ namespace MrRollWebConf.Controllers
             var category = categories.FirstOrDefault(c => c.Id == categoryId);
             if (category == null)
             {
-                ViewData["error"] = "Obiekt został usunięty przez innego użytkownika.";
+                TempData["error"] = "Obiekt został usunięty przez innego użytkownika.";
                 return RedirectToAction("Index");
             }
 
@@ -80,13 +80,13 @@ namespace MrRollWebConf.Controllers
             var category = categories.FirstOrDefault(c => c.Id == categoryId);
             if (category == null)
             {
-                ViewData["error"] = "Obiekt został usunięty przez innego użytkownika.";
+                TempData["error"] = "Obiekt został usunięty przez innego użytkownika.";
                 return RedirectToAction("Index");
             }
             var topic = category.Topics.FirstOrDefault(t => t.Id == topicId);
             if (topic == null)
             {
-                ViewData["error"] = "Obiekt został usunięty przez innego użytkownika.";
+                TempData["error"] = "Obiekt został usunięty przez innego użytkownika.";
                 return RedirectToAction("Index");
             }
 
@@ -100,11 +100,11 @@ namespace MrRollWebConf.Controllers
             try
             {
                 _categoriesRepository.DeleteTopic(topicId, categoryId);
-                ViewData["success"] = "Temat został usunięty.";
+                TempData["success"] = "Temat został usunięty.";
             }
             catch (MrRollException)
             {
-                ViewData["error"] = "Operacja zakończona niepowodzeniem.";
+                TempData["error"] = "Operacja zakończona niepowodzeniem.";
             }
             return RedirectToAction("Index");
         }
@@ -115,11 +115,11 @@ namespace MrRollWebConf.Controllers
             try
             {
                 _categoriesRepository.SaveCategory(editCategoryViewModel);
-                ViewData["success"] = "Kategoria została zapisana.";
+                TempData["success"] = "Kategoria została zapisana.";
             }
             catch (MrRollException)
             {
-                ViewData["error"] = "Operacja zakończona niepowodzeniem.";
+                TempData["error"] = "Operacja zakończona niepowodzeniem.";
             }
             return RedirectToAction("Index");
         }
@@ -130,11 +130,11 @@ namespace MrRollWebConf.Controllers
             try
             {
                 _categoriesRepository.SaveTopic(editTopicViewModel);
-                ViewData["success"] = "Temat został zapisany.";
+                TempData["success"] = "Temat został zapisany.";
             }
             catch (MrRollException)
             {
-                ViewData["error"] = "Operacja zakończona niepowodzeniem.";
+                TempData["error"] = "Operacja zakończona niepowodzeniem.";
             }
             return RedirectToAction("Index");
         }
