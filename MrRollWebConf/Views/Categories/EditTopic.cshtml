@@ -1,18 +1,24 @@
-﻿@model EditTopicModel
+﻿@model EditTopicViewModel
 
 <div class="panel panel-success">
     <div class="panel-heading">
         <h4>Topic details</h4>
     </div>
     <div class="panel-body">
-        <form asp-action="EditTopic" method="post">
+        <form asp-action="SaveTopic" method="post">
             <div asp-validation-summary="All"></div>
-
-
+            
+            <input type="hidden" asp-for="Id">
+            <input type="hidden" asp-for="CategoryId">
 
             <div class="form-group">
-                <label asp-for="Topic.Name">Name: </label>
-                <input class="form-control" asp-for="Topic.Name" />
+                <label asp-for="CategoryName">Category: </label>
+                <input class="form-control" asp-for="CategoryName" readonly />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Name">Name: </label>
+                <input class="form-control" asp-for="Name" />
             </div>
 
 

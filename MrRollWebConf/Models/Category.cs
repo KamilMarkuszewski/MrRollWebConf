@@ -9,6 +9,6 @@ namespace MrRollWebConf.Models
     {
         public int Id;
         public string Name;
-        public List<Topic> Topics;
+        public IEnumerable<Topic> Topics;
     }
 }

@@ -1,19 +1,21 @@
-﻿@model EditCategoryModel
+﻿@model EditCategoryViewModel
 
 <div class="panel panel-success">
     <div class="panel-heading">
         <h4>Category details</h4>
     </div>
     <div class="panel-body">
-        <form asp-action="EditCategory" method="post">
+        <form asp-action="SaveCategory" method="post">
             <div asp-validation-summary="All"></div>
-            
+
+            <input type="hidden" asp-for="Id"/>
+
             <div class="form-group">
-                <label asp-for="Category.Name">Name: </label>
-                <input class="form-control" asp-for="Category.Name"/>
+                <label asp-for="Name">Name: </label>
+                <input class="form-control" asp-for="Name"/>
             </div>
-            
-            
+
+
             <div class="text-center">
                 <button class="btn btn-primary" type="submit">Save</button>
             </div>

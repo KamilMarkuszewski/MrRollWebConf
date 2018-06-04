@@ -1,35 +1,62 @@
-﻿body {
+body {
     padding-top: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 20px
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 15px
 }
 
-/* Carousel */
 .carousel-caption p {
     font-size: 20px;
-    line-height: 1.4;
+    line-height: 1.4
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+    width: 100%
 }
 
-/* QR code generator */
 #qrCode {
-    margin: 15px;
+    margin: 15px
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
+@media screen and (max-width:767px) {
     .carousel-caption {
-        display: none;
+        display: none
     }
+}
+
+a.brand {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 23px;
+    color: #9d9d9d
+}
+
+.menu-item {
+    color: #9d9d9d;
+    position: relative;
+    padding: 10px 15px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px
+}
+
+.menu {
+    background-color: #222;
+    border-color: #080808;
+    border-width: 0 0 1px;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    border-width: 0 0 1px
+}
+
+footer {
+    bottom: 0;
+    position: fixed;
+    right: 0;
+    left: 0;
+    background-color: #ddd;
+    color: #555
 }

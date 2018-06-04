@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MrRollWebConf.Data;
 using MrRollWebConf.Exceptions;
 using MrRollWebConf.Models;
 
@@ -12,75 +13,130 @@ namespace MrRollWebConf.Controllers
 {
     public class CategoriesController : Controller
     {
+        private readonly ICategoriesRepository _categoriesRepository;
+
+        public CategoriesController(ICategoriesRepository categoriesRepository)
+        {
+            _categoriesRepository = categoriesRepository;
+        }
+
         // GET: /<controller>/
         public IActionResult Index()
         {
-            var categories = FakeRepo.AllGetCategories();
+            var categories = _categoriesRepository.GetCategories().OrderBy(c => c.Id);
             return View("Index", categories);
         }
 
-
         public IActionResult AddCategory()
         {
-            return View("EditCategory", new EditCategoryModel());
+            return View("EditCategory", new EditCategoryViewModel());
         }
 
-        public IActionResult EditCategory(Category cat)
+        public IActionResult EditCategory(int categoryId)
         {
-            return View(new EditCategoryModel(cat));
+            var categories = _categoriesRepository.GetCategories();
+            var cateogry = categories.FirstOrDefault(c => c.Id == categoryId);
+            if (cateogry == null)
+            {
+                ViewData["error"] = "Obiekt został usunięty przez innego użytkownika.";
+                return RedirectToAction("Index");
+            }
+
+            return View("EditCategory", new EditCategoryViewModel(cateogry));
         }
 
-        public IActionResult DeleteCategory(Category category)
+        [HttpPost]
+        public IActionResult DeleteCategory(int categoryId)
         {
             try
             {
-                FakeRepo.DeleteCategory(category);
+                _categoriesRepository.DeleteCategory(categoryId);
                 ViewData["success"] = "Kategoria została usunięta.";
             }
-            catch (MrRollForeignKeyException)
+            catch (MrRollException)
             {
-                ViewData["error"] = "Nie można usunąć.";
+                ViewData["error"] = "Operacja zakończona niepowodzeniem.";
             }
-            catch (MrRollConcurrencyException)
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult AddTopic(int categoryId)
+        {
+            var categories = _categoriesRepository.GetCategories();
+            var category = categories.FirstOrDefault(c => c.Id == categoryId);
+            if (category == null)
             {
-                ViewData["error"] = "Obiekt został edytowany przez innego użytkownika.";
+                ViewData["error"] = "Obiekt został usunięty przez innego użytkownika.";
+                return RedirectToAction("Index");
             }
-            return Index();
+
+            return View("EditTopic", new EditTopicViewModel(categoryId, category.Name));
         }
 
-
-        public IActionResult AddTopic()
+        public IActionResult EditTopic(int topicId, int categoryId)
         {
-            IEnumerable<CategoryRow> allCategories = FakeRepo.AllGetCategoryRows();
-            return View("EditTopic", new EditTopicModel(allCategories));
+            var categories = _categoriesRepository.GetCategories();
+            var category = categories.FirstOrDefault(c => c.Id == categoryId);
+            if (category == null)
+            {
+                ViewData["error"] = "Obiekt został usunięty przez innego użytkownika.";
+                return RedirectToAction("Index");
+            }
+            var topic = category.Topics.FirstOrDefault(t => t.Id == topicId);
+            if (topic == null)
+            {
+                ViewData["error"] = "Obiekt został usunięty przez innego użytkownika.";
+                return RedirectToAction("Index");
+            }
+
+            var editTopicViewModel = new EditTopicViewModel(topicId, topic.Name, categoryId, category.Name);
+            return View(editTopicViewModel);
         }
 
-        public IActionResult EditTopic()
-        {
-            Topic topic = null;
-            IEnumerable<CategoryRow> allCategories = FakeRepo.AllGetCategoryRows();
-            return View(new EditTopicModel(topic, allCategories));
-        }
-
-        public IActionResult DeleteTopic(Topic topic)
+        [HttpPost]
+        public IActionResult DeleteTopic(int topicId, int categoryId)
         {
             try
             {
-                FakeRepo.DeleteTopic(topic);
+                _categoriesRepository.DeleteTopic(topicId, categoryId);
                 ViewData["success"] = "Temat został usunięty.";
             }
-            catch (MrRollForeignKeyException)
+            catch (MrRollException)
             {
-                ViewData["error"] = "Nie można usunąć.";
+                ViewData["error"] = "Operacja zakończona niepowodzeniem.";
             }
-            catch (MrRollConcurrencyException)
-            {
-                ViewData["error"] = "Obiekt został edytowany przez innego użytkownika.";
-            }
-            return Index();
+            return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public IActionResult SaveCategory(EditCategoryViewModel editCategoryViewModel)
+        {
+            try
+            {
+                _categoriesRepository.SaveCategory(editCategoryViewModel);
+                ViewData["success"] = "Kategoria została zapisana.";
+            }
+            catch (MrRollException)
+            {
+                ViewData["error"] = "Operacja zakończona niepowodzeniem.";
+            }
+            return RedirectToAction("Index");
+        }
 
-
+        [HttpPost]
+        public IActionResult SaveTopic(EditTopicViewModel editTopicViewModel)
+        {
+            try
+            {
+                _categoriesRepository.SaveTopic(editTopicViewModel);
+                ViewData["success"] = "Temat został zapisany.";
+            }
+            catch (MrRollException)
+            {
+                ViewData["error"] = "Operacja zakończona niepowodzeniem.";
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

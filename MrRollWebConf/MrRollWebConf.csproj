@@ -21,6 +21,44 @@
 
   <ItemGroup>
     <Folder Include="Pages\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\lib\popper.js\.tmp\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\jqueryui\jquery-ui.js" />
+    <None Include="wwwroot\lib\jqueryui\jquery-ui.min.js" />
+    <None Include="wwwroot\lib\popper.js\.eslintignore" />
+    <None Include="wwwroot\lib\popper.js\.eslintrc.js" />
+    <None Include="wwwroot\lib\popper.js\dist\esm\popper-utils.js" />
+    <None Include="wwwroot\lib\popper.js\dist\esm\popper-utils.js.map" />
+    <None Include="wwwroot\lib\popper.js\dist\esm\popper-utils.min.js" />
+    <None Include="wwwroot\lib\popper.js\dist\esm\popper-utils.min.js.map" />
+    <None Include="wwwroot\lib\popper.js\dist\esm\popper.js" />
+    <None Include="wwwroot\lib\popper.js\dist\esm\popper.js.map" />
+    <None Include="wwwroot\lib\popper.js\dist\esm\popper.min.js" />
+    <None Include="wwwroot\lib\popper.js\dist\esm\popper.min.js.map" />
+    <None Include="wwwroot\lib\popper.js\dist\popper-utils.js" />
+    <None Include="wwwroot\lib\popper.js\dist\popper-utils.js.map" />
+    <None Include="wwwroot\lib\popper.js\dist\popper-utils.min.js" />
+    <None Include="wwwroot\lib\popper.js\dist\popper-utils.min.js.map" />
+    <None Include="wwwroot\lib\popper.js\dist\popper.js" />
+    <None Include="wwwroot\lib\popper.js\dist\popper.js.map" />
+    <None Include="wwwroot\lib\popper.js\dist\popper.min.js" />
+    <None Include="wwwroot\lib\popper.js\dist\popper.min.js.map" />
+    <None Include="wwwroot\lib\popper.js\dist\umd\popper-utils.js" />
+    <None Include="wwwroot\lib\popper.js\dist\umd\popper-utils.js.map" />
+    <None Include="wwwroot\lib\popper.js\dist\umd\popper-utils.min.js" />
+    <None Include="wwwroot\lib\popper.js\dist\umd\popper-utils.min.js.map" />
+    <None Include="wwwroot\lib\popper.js\dist\umd\popper.js" />
+    <None Include="wwwroot\lib\popper.js\dist\umd\popper.js.map" />
+    <None Include="wwwroot\lib\popper.js\dist\umd\popper.min.js" />
+    <None Include="wwwroot\lib\popper.js\dist\umd\popper.min.js.map" />
+    <None Include="wwwroot\lib\popper.js\README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\lib\popper.js\index.d.ts" />
   </ItemGroup>
 
 </Project>

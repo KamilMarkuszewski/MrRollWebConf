@@ -9,5 +9,11 @@ namespace MrRollWebConf.Models
     {
         public int Id;
         public string Name;
+
+        public CategoryRow(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
     }
 }

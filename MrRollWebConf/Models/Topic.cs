@@ -8,7 +8,6 @@ namespace MrRollWebConf.Models
     public class Topic
     {
         public int Id;
-        public int CategoryId;
         public string Name;
     }
 }
